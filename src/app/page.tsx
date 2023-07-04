@@ -1,11 +1,25 @@
-import Image from 'next/image'
+import clientPromise from "@/lib/mongodb";
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
-        <p>Hola Mundo</p>
-      </div>
-    </main>
-  )
+async function getData() {
+  const client = await clientPromise;
+  const db = client.db('auth-users');
+
+  const user = await db.collection('users').findOne({
+    email: 'hola@mundo.com'
+  });
+
+  // const result = await db.collection('users').insertOne({
+  //   email: 'hola@mundo.com',
+  //   address: {},
+  //   age: 25,
+  //   name: 'Juan Perez',
+  // });
+
+  console.log('user', user)
+}
+
+export default async function Page() {
+  // const data = await getData()
+
+  return <main></main>
 }
